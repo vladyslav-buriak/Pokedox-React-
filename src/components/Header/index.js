@@ -7,7 +7,7 @@ import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlin
 const Header = () => {
   return (
     <AppBar>
-      <Toolbar sx={{background:"#bdbdbd"}}>
+      <Toolbar sx={{ background: "#bdbdbd" }}>
         <Typography
           variant="h5"
           color="inherit"
