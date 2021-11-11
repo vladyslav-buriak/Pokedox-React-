@@ -6,25 +6,32 @@ import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import Typography from "@mui/material/Typography";
+import { useNavigate } from "react-router-dom";
 
 const PokemonCard = ({ pokemons }) => {
+  const navigate = useNavigate();
   return (
     <Grid container>
       {pokemons.map((p) => (
-        <Grid item md="4" sx={{ mt: "2rem" }}>
+        <Grid item xs="6" md="4" sx={{ mt: "2rem", margin: "0 auto" }}>
           <Card
             sx={{
               maxWidth: 245,
+              margin: "10px auto",
               border: "14px solid #f5f5f5",
               background:
                 "linear-gradient(0deg, rgba(220,220,220,1) 0%, rgba(211,211,211,1) 72%, rgba(169,169,169,1) 93%)",
             }}
           >
-            {console.log(p)}
             <CardHeader
               title={"#" + p.order}
               action={
-                <IconButton aria-label="settings">
+                <IconButton
+                  onClick={() => {
+                    navigate(`/pokemons/${p.name}`);
+                  }}
+                  aria-label="settings"
+                >
                   <InfoOutlinedIcon />
                 </IconButton>
               }

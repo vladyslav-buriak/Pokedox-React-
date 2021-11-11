@@ -1,35 +1,29 @@
 import "./App.css";
-import axios from "axios";
-import Header from "./components/Header";
+import About from "./components/About/Index";
 import Main from "./components/Main";
-import Loader from "./UI/Loader";
-import useFetching from "./hooks/fetchingPokemons";
-import { useEffect, useState } from "react";
+import PokemonPage from "./components/PokemonPage";
+import Leftbar from "./components/Leftbar";
+import { BrowserRouter as Router } from "react-router-dom";
+import { Routes } from "react-router-dom";
+import { Route } from "react-router-dom";
 
 function App() {
-  const [pokemons, setPokemons] = useState([]);
-  const [fetchingPokemons, isLoading] = useFetching(async () => {
-    const response = await axios.get(
-      "https://pokeapi.co/api/v2/pokemon?limit=6"
-    );
-    const data = await response.data;
-
-    data.results.map(async (p) => {
-      const response = await axios.get(
-        `https://pokeapi.co/api/v2/pokemon/${p.name}`
-      );
-      setPokemons((pokemonsList) => [...pokemonsList, response.data]);
-    });
-  });
-
-  useEffect(() => {
-    fetchingPokemons();
-  }, []);
   return (
-    <div className="App">
-      <Header />
-      {isLoading ? <Loader /> : <Main pokemons={pokemons} />}
-    </div>
+    <Router>
+      <div
+        className="App"
+        style={{
+          display: "flex",
+        }}
+      >
+        <Leftbar />
+        <Routes>
+          <Route exact path="/pokemons" element={<Main />} />
+          <Route exact path="/about" element={<About />} />
+          <Route exact path="/pokemons/:name" element={<PokemonPage />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
